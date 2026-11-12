@@ -1,0 +1,45 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { withBase } from '../lib/url';
+
+interface Props {
+	title: string;
+	description: string;
+}
+
+const { title, description } = Astro.props;
+const fullTitle = title === 'Day 27' ? title : `${title} · Day 27`;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+---
+
+<!doctype html>
+<html lang="ko">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content={description} />
+		<meta name="generator" content={Astro.generator} />
+		<meta property="og:title" content={fullTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		{canonical && <link rel="canonical" href={canonical} />}
+		<link rel="icon" type="image/svg+xml" href={withBase('favicon.svg')} />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,560;0,6..72,650;1,6..72,400&family=Outfit:wght@400;500;600&display=swap"
+			rel="stylesheet"
+		/>
+		<title>{fullTitle}</title>
+	</head>
+	<body>
+		<a class="skip" href="#content">본문으로 건너뛰기</a>
+		<Header />
+		<main id="content" class="shell">
+			<slot />
+		</main>
+		<Footer />
+	</body>
+</html>

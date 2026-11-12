@@ -1,0 +1,27 @@
+---
+import { withBase } from '../lib/url';
+
+interface Props {
+	terms: { name: string; count: number }[];
+	basePath: string;
+}
+
+const { terms, basePath } = Astro.props;
+---
+
+{
+	terms.length === 0 ? (
+		<p class="empty">아직 분류가 없습니다.</p>
+	) : (
+		<ul class="term-list">
+			{terms.map((term) => (
+				<li>
+					<a href={withBase(`${basePath}/${encodeURIComponent(term.name)}`)}>
+						{term.name}
+						<span>{term.count}</span>
+					</a>
+				</li>
+			))}
+		</ul>
+	)
+}

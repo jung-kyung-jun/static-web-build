@@ -1,0 +1,31 @@
+---
+import Base from '../../../../layouts/Base.astro';
+import PostList from '../../../../components/PostList.astro';
+import { getPosts, monthLabel, monthOf } from '../../../../lib/posts';
+
+export async function getStaticPaths() {
+	const posts = await getPosts();
+	const months = new Map<string, { year: string; month: string }>();
+	for (const post of posts) {
+		const value = monthOf(post);
+		months.set(`${value.year}/${value.month}`, value);
+	}
+	return [...months.values()].map(({ year, month }) => ({
+		params: { year, month },
+	}));
+}
+
+const { year, month } = Astro.params;
+const posts = (await getPosts()).filter((post) => {
+	const value = monthOf(post);
+	return value.year === year && value.month === month;
+});
+const label = monthLabel(year!, month!);
+---
+
+<Base title={label} description={`${label}에 쓴 글`}>
+	<p class="kicker">Archive</p>
+	<h1 class="page-title">{label}</h1>
+	<p class="page-intro">이 달에 폴더에 넣은 글입니다.</p>
+	<PostList posts={posts} />
+</Base>

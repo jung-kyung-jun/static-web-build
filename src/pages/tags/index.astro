@@ -1,0 +1,15 @@
+---
+import Base from '../../layouts/Base.astro';
+import TermList from '../../components/TermList.astro';
+import { collectTerms, getPosts } from '../../lib/posts';
+
+const posts = await getPosts();
+const tags = collectTerms(posts, (post) => post.data.tags);
+---
+
+<Base title="태그" description="글에 단 태그를 모아 봅니다.">
+	<p class="kicker">Tags</p>
+	<h1 class="page-title">태그</h1>
+	<p class="page-intro">같은 태그가 달린 글을 한곳에서 봅니다.</p>
+	<TermList terms={tags} basePath="tags" />
+</Base>

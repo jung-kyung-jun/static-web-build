@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="About" description="Day 27은 마크다운 글을 정적 페이지로 만드는 블로그입니다.">
+	<p class="kicker">About</p>
+	<h1 class="page-title">이 노트에 대하여</h1>
+	<div class="prose">
+		<p>
+			Day 27은 서버 없이 돌아가는 블로그입니다. 글은 마크다운 파일이고, 빌드하면 HTML로 바뀝니다. 그 결과물을
+			GitHub Pages에 올리면 사이트가 열립니다.
+		</p>
+		<h2>글을 추가하는 방법</h2>
+		<p>
+			파일은 <code>src/content/blog/연도/월/슬러그.md</code>에 둡니다. 예를 들어 2026년 11월 글은
+			<code>src/content/blog/2026/11/my-note.md</code>입니다. 주소는 <code>/blog/2026/11/my-note</code>가 됩니다.
+		</p>
+		<p>파일 맨 위에는 제목, 날짜, 요약, 카테고리, 태그를 적습니다.</p>
+		<pre><code>title: 글 제목
+date: 2026-11-12
+description: 한 줄 요약
+category: 노트
+tags: [기록, 마크다운]
+draft: false</code></pre>
+		<p>
+			<code>draft: true</code>인 글은 목록과 페이지에서 빠집니다. 카테고리는 글마다 하나, 태그는 여러 개 둘 수
+			있습니다. 같은 이름끼리 모아서 분류 페이지가 만들어집니다.
+		</p>
+		<h2>메뉴</h2>
+		<ul>
+			<li>Home은 최근 글과 카테고리를 보여 줍니다.</li>
+			<li>About은 이 페이지입니다.</li>
+			<li>Blog는 글을 월별로 묶고, 태그와 카테고리로 이어집니다.</li>
+		</ul>
+	</div>
+</Base>

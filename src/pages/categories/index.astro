@@ -1,0 +1,15 @@
+---
+import Base from '../../layouts/Base.astro';
+import TermList from '../../components/TermList.astro';
+import { collectTerms, getPosts } from '../../lib/posts';
+
+const posts = await getPosts();
+const categories = collectTerms(posts, (post) => [post.data.category]);
+---
+
+<Base title="카테고리" description="글의 카테고리를 모아 봅니다.">
+	<p class="kicker">Categories</p>
+	<h1 class="page-title">카테고리</h1>
+	<p class="page-intro">글마다 카테고리 하나를 두고, 같은 이름끼리 모읍니다.</p>
+	<TermList terms={categories} basePath="categories" />
+</Base>
